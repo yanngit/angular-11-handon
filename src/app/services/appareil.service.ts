@@ -3,14 +3,17 @@ export class AppareilService {
   static STATUS_ETEINT = 'eteint';
   private appareils = [
     {
+      id: 1,
       name: 'Machine à laver',
       status: AppareilService.STATUS_ALLUME
     },
     {
+      id: 3,
       name: 'Frigo',
       status: AppareilService.STATUS_ALLUME
     },
     {
+      id: 2,
       name: 'Ordinateur',
       status: AppareilService.STATUS_ETEINT
     }
@@ -38,5 +41,9 @@ export class AppareilService {
     this.appareils.forEach((data) => {
       data.status = AppareilService.STATUS_ETEINT;
     });
+  }
+
+  getAppareil(idToFind: number): any {
+    return this.appareils.find(({id}) => id === idToFind);
   }
 }

@@ -5,4 +5,5 @@
   <input type="text" class="form-control" (change)="updated()" [(ngModel)]="name">
   <button class="btn btn-success"
           (click)="onSwitch()">{{ buttonSwitchText }}</button>
+  <a [routerLink]="['appareils',id]">Détail</a>
 </li>

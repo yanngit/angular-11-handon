@@ -14,6 +14,7 @@ export class AppareilComponent implements OnInit, OnChanges {
   @Input() name: string;
   @Input() status: string;
   @Input() index: number;
+  @Input() id: number;
   lastUpdate = new Promise<Date>((resolve, reject) => {
     const date = new Date();
     setTimeout(
