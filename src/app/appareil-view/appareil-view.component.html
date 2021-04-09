@@ -1,0 +1,5 @@
+<h2>Mes appareils</h2>
+<ul class="list-group">
+  <app-appareil *ngFor="let appareil of appareils; let i = index" [index]="i" [id]="appareil.id" [name]="appareil.name" [status]="appareil.status"></app-appareil>
+</ul>
+<button class="btn btn-success" (click)="action === getActionAllumer() ? onAllumer() : onEteindre()">{{ getActionText() }}</button>
