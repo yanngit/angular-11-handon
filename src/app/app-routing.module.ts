@@ -4,10 +4,11 @@ import {AppareilViewComponent} from './appareil-view/appareil-view.component';
 import {AuthComponent} from './auth/auth.component';
 import {SingleAppareilViewComponent} from './single-appareil-view/single-appareil-view.component';
 import {FourOhFourComponent} from './four-oh-four/four-oh-four.component';
+import {AuthGuard} from './services/auth-guard.service';
 
 const routes: Routes = [
-  { path: 'appareils', component: AppareilViewComponent },
-  { path: 'appareils/:id', component: SingleAppareilViewComponent },
+  { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent },
+  { path: 'appareils/:id', canActivate: [AuthGuard], component: SingleAppareilViewComponent },
   { path: 'auth', component: AuthComponent },
   { path: '', component: AppareilViewComponent },
   { path: 'not-found', component: FourOhFourComponent },

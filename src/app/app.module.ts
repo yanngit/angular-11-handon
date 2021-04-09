@@ -12,6 +12,7 @@ import { AppareilViewComponent } from './appareil-view/appareil-view.component';
 import {AuthService} from './services/auth.service';
 import { SingleAppareilViewComponent } from './single-appareil-view/single-appareil-view.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import {AuthGuard} from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -26,11 +27,12 @@ import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     AppareilService,
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
