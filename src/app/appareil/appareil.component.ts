@@ -9,7 +9,7 @@ const ACTION_ETEINDRE = 'eteindre';
   templateUrl: './appareil.component.html',
   styleUrls: ['./appareil.component.scss']
 })
-export class AppareilComponent implements OnInit, OnChanges {
+export class AppareilComponent implements OnInit {
 
   @Input() name: string;
   @Input() status: string;
@@ -33,15 +33,16 @@ export class AppareilComponent implements OnInit, OnChanges {
   }
 
   onSwitch(): void {
+    /*here the condition is reversed compared to the init condition because we are computing the text that is going to be rendered
+    after the switch.
+    Tricky and can be avoided with ngOnChange to recompute the button text once the switch changes are propagated.
+    In that case the condition will be the same as the one used in ngOnInit.*/
+    this.buttonSwitchText = this.status === AppareilService.STATUS_ALLUME ?  ACTION_ALLUMER : ACTION_ETEINDRE;
     if (this.status === AppareilService.STATUS_ALLUME) {
       this.appareilService.switchOffOne(this.index);
     } else if (this.status ===  AppareilService.STATUS_ETEINT) {
       this.appareilService.switchOnOne(this.index);
     }
-  }
-
-  ngOnChanges(): void {
-    this.buttonSwitchText = this.status === AppareilService.STATUS_ALLUME ? ACTION_ETEINDRE : ACTION_ALLUMER;
   }
 
   getLiClass(): object {

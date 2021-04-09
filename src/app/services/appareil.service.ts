@@ -1,6 +1,9 @@
+import {Subject} from 'rxjs';
+
 export class AppareilService {
   static STATUS_ALLUME = 'allume';
   static STATUS_ETEINT = 'eteint';
+  appareilsSubject = new Subject<any[]>();
   private appareils = [
     {
       id: 1,
@@ -19,28 +22,36 @@ export class AppareilService {
     }
   ];
 
+  emitAppareilSubject(): void {
+    this.appareilsSubject.next(this.appareils.slice());
+  }
+
   getAppareils(): any[] {
-    return this.appareils;
+    return this.appareils.slice();
   }
 
   switchOnOne(i: number): void {
     this.appareils[i].status = AppareilService.STATUS_ALLUME;
+    this.emitAppareilSubject();
   }
 
   switchOffOne(i: number): void {
     this.appareils[i].status = AppareilService.STATUS_ETEINT;
+    this.emitAppareilSubject();
   }
 
   switchOnAll(): void {
     this.appareils.forEach((data) => {
       data.status = AppareilService.STATUS_ALLUME;
     });
+    this.emitAppareilSubject();
   }
 
   switchOffAll(): void {
     this.appareils.forEach((data) => {
       data.status = AppareilService.STATUS_ETEINT;
     });
+    this.emitAppareilSubject();
   }
 
   getAppareil(idToFind: number): any {
