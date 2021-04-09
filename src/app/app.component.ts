@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {interval, Subscription} from 'rxjs';
+import {throttleTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const counter = interval(1000);
-    this.counterSubscription = counter.subscribe(
+    const slowedCounter = counter.pipe(throttleTime(5000));
+    this.counterSubscription = slowedCounter.subscribe(
       (value) => {
         this.secondes = value;
       },

@@ -23,7 +23,7 @@ export class AppareilService {
   ];
 
   emitAppareilSubject(): void {
-    this.appareilsSubject.next(this.appareils.slice());
+    this.appareilsSubject.next([...this.appareils]);
   }
 
   getAppareils(): any[] {
