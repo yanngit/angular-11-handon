@@ -19,4 +19,24 @@ export class AppareilService {
   getAppareils(): any[] {
     return this.appareils;
   }
+
+  switchOnOne(i: number): void {
+    this.appareils[i].status = AppareilService.STATUS_ALLUME;
+  }
+
+  switchOffOne(i: number): void {
+    this.appareils[i].status = AppareilService.STATUS_ETEINT;
+  }
+
+  switchOnAll(): void {
+    this.appareils.forEach((data) => {
+      data.status = AppareilService.STATUS_ALLUME;
+    });
+  }
+
+  switchOffAll(): void {
+    this.appareils.forEach((data) => {
+      data.status = AppareilService.STATUS_ETEINT;
+    });
+  }
 }

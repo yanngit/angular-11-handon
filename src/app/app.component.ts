@@ -30,17 +30,15 @@ export class AppComponent implements OnInit {
   }
 
   onAllumer(): void {
-    this.appareils.forEach((data) => {
-      data.status = AppareilService.STATUS_ALLUME;
-    });
+    this.appareilService.switchOnAll();
     this.action = ACTION_ETEINDRE;
   }
 
   onEteindre(): void {
-    this.appareils.forEach((data) => {
-      data.status = AppareilService.STATUS_ETEINT;
-    });
-    this.action = ACTION_ALLUMER;
+    if (confirm('Etes-vous sûr de vouloir éteindre tous vos appareils ?')) {
+      this.appareilService.switchOffAll();
+      this.action = ACTION_ALLUMER;
+    }
   }
 
   getActionText(): string {
