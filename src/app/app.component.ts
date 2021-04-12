@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {interval, Subscription} from 'rxjs';
 import {throttleTime} from 'rxjs/operators';
+import {AuthService} from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import {throttleTime} from 'rxjs/operators';
 export class AppComponent implements OnInit, OnDestroy {
   secondes: number;
   counterSubscription: Subscription;
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -32,6 +33,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.counterSubscription.unsubscribe();
+  }
+
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
   }
 
 }

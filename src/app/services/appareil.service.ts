@@ -57,4 +57,17 @@ export class AppareilService {
   getAppareil(idToFind: number): any {
     return this.appareils.find(({id}) => id === idToFind);
   }
+
+  addAppareil(name: string, status: string): void {
+    const appareilObject = {
+      id: 0,
+      name: '',
+      status: ''
+    };
+    appareilObject.name = name;
+    appareilObject.status = status;
+    appareilObject.id = this.appareils[(this.appareils.length - 1)].id + 1;
+    this.appareils.push(appareilObject);
+    this.emitAppareilSubject();
+  }
 }

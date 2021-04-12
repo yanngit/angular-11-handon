@@ -13,6 +13,7 @@ import {AuthService} from './services/auth.service';
 import { SingleAppareilViewComponent } from './single-appareil-view/single-appareil-view.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import {AuthGuard} from './services/auth-guard.service';
+import { EditAppareilComponent } from './edit-appareil/edit-appareil.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {AuthGuard} from './services/auth-guard.service';
     AuthComponent,
     AppareilViewComponent,
     SingleAppareilViewComponent,
-    FourOhFourComponent
+    FourOhFourComponent,
+    EditAppareilComponent
   ],
   imports: [
     BrowserModule,
