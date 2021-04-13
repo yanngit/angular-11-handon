@@ -50,4 +50,12 @@ export class AppareilViewComponent implements OnInit {
     return ACTION_ALLUMER;
   }
 
+  onSave(): void {
+    this.appareilService.saveAppareilsToServer();
+  }
+
+  onFetch(): void {
+    this.appareilService.getAppareilsFromServer();
+  }
+
 }
