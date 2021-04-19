@@ -1,18 +1,20 @@
 import { User } from '../models/User.model';
-import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class UserService {
-  private users: User[] = [
-    new User('Will', 'Alexander', 'will@will.com', 'jus d\'orange', ['coder', 'boire du café'])
-  ];
-  userSubject = new Subject<User[]>();
+  constructor(private httpClient: HttpClient) {}
 
-  emitUsers(): void {
-    this.userSubject.next(this.users.slice());
-  }
+  private registerRoute = '/users';
 
-  addUser(user: User): void {
-    this.users.push(user);
-    this.emitUsers();
+  register(user: User): Observable<any> {
+    return this.httpClient.post(environment.backendUrl + this.registerRoute, {
+      username: user.username,
+      email: user.email,
+      password: user.password,
+    });
   }
 }

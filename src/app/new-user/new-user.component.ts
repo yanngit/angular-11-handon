@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from '../models/User.model';
-import {UserService} from '../services/user.service';
-import {Router} from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from '../models/User.model';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-user',
   templateUrl: './new-user.component.html',
-  styleUrls: ['./new-user.component.scss']
+  styleUrls: ['./new-user.component.scss'],
 })
 export class NewUserComponent implements OnInit {
-
   userForm: FormGroup;
+  errorMessage: string;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -21,34 +25,28 @@ export class NewUserComponent implements OnInit {
 
   initForm(): void {
     this.userForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      drinkPreference: ['', Validators.required],
-      hobbies: this.formBuilder.array([])
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
   onSubmitForm(): void {
     const formValue = this.userForm.value;
     const newUser = new User(
-      formValue.firstName,
-      formValue.lastName,
+      formValue.username,
       formValue.email,
-      formValue.drinkPreference,
-      formValue.hobbies ? formValue.hobbies : []
+      formValue.password
     );
-    this.userService.addUser(newUser);
-    this.router.navigate(['/users']);
+    this.userService.register(newUser).subscribe(
+      (data) => {
+        console.log(data);
+        this.router.navigate(['auth']);
+      },
+      (err) => {
+        console.log(err);
+        this.errorMessage = err.error.message;
+      }
+    );
   }
-
-  getHobbies(): FormArray {
-    return this.userForm.get('hobbies') as FormArray;
-  }
-
-  onAddHobby(): void {
-    const newHobbyControl = this.formBuilder.control(null, Validators.required);
-    this.getHobbies().push(newHobbyControl);
-  }
-
 }

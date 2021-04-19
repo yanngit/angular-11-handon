@@ -1,2 +1,23 @@
-<button class="btn btn-success"
-        (click)="buttonAction()">{{ buttonText() }}</button>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <form (ngSubmit)="onSubmitForm(f)" #f="ngForm">
+      <div class="form-group">
+        <label for="email">
+          Email
+        </label>
+        <input type="text" placeholder="MyAdress@email.com" id="email" class="form-control" name="email" ngModel required>
+      </div>
+      <div class="form-group">
+        <label for="password">
+          Password
+        </label>
+        <input type="password" placeholder="MyPasswor" id="password" class="form-control" name="password" ngModel required>
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="f.invalid">Sign in</button>
+      <a [routerLink]="['/new-user']"><button id="create-account-button" class="btn btn-success">Create account</button></a>
+    </form>
+  </div>
+</div>
