@@ -13,20 +13,24 @@ export class AuthComponent implements OnInit {
   isAuth: boolean;
   errorMessage: string;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.getAuthentication().subscribe((data) => {
+      this.isAuth = data;
+    });
+  }
 
   ngOnInit(): void {
-    this.isAuth = this.authService.isAuthenticated();
+    if (this.isAuth && this.router.url === '/') {
+      this.router.navigate(['programs']);
+    }
   }
 
   onSubmitForm(form: NgForm): void {
     const email = form.value.email;
     const password = form.value.password;
     this.authService.signIn(email, password).subscribe(
-      (data: { access_token: string }) => {
-        console.log(data);
-        this.isAuth = true;
-        this.router.navigate(['appareils']);
+      () => {
+        this.router.navigate(['programs']);
       },
       (err) => {
         this.errorMessage = err.error.message;
@@ -34,7 +38,7 @@ export class AuthComponent implements OnInit {
     );
   }
 
-  buttonText(): string {
-    return this.isAuth ? 'Sign out' : 'Sign in';
+  signOut(): void {
+    this.authService.signOut();
   }
 }

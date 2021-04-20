@@ -1,20 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
-import { ServiceResponse } from './service-response';
+import { Observable, ReplaySubject } from 'rxjs';
+import { buildRoute } from './utils';
 
 @Injectable()
 export class AuthService {
-  constructor(private httpClient: HttpClient) {}
-
-  private isAuth = false;
-  private accessToken: string;
+  private isAuth = new ReplaySubject<boolean>(1);
   private loginRoute = '/auth/login';
+
+  constructor(private httpClient: HttpClient) {
+    const isAlreadyLoggedIn = localStorage.getItem('access_token') !== null;
+    this.isAuth.next(isAlreadyLoggedIn);
+  }
 
   signIn(email: string, password: string): Observable<any> {
     const observableResponse = this.httpClient.post<{ access_token: string }>(
-      environment.backendUrl + this.loginRoute,
+      buildRoute(this.loginRoute),
       {
         email,
         password,
@@ -22,21 +23,23 @@ export class AuthService {
     );
 
     observableResponse.subscribe((data) => {
-      this.isAuth = true;
-      this.accessToken = data.access_token;
-      return {
-        success: true,
-      };
+      this.isAuth.next(true);
+      localStorage.setItem('access_token', data.access_token);
     });
 
     return observableResponse;
   }
 
   signOut(): void {
-    this.isAuth = false;
+    this.isAuth.next(false);
+    localStorage.removeItem('access_token');
   }
 
-  isAuthenticated(): boolean {
+  getAuthentication(): Observable<boolean> {
     return this.isAuth;
+  }
+
+  getAccessToken() {
+    return localStorage.getItem('access_token');
   }
 }

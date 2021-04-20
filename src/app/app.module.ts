@@ -11,12 +11,16 @@ import { AuthComponent } from './auth/auth.component';
 import { AppareilViewComponent } from './appareil-view/appareil-view.component';
 import { AuthService } from './services/auth.service';
 import { SingleAppareilViewComponent } from './single-appareil-view/single-appareil-view.component';
-import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { NotFoundComponent } from './four-oh-four/not-found.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { EditAppareilComponent } from './edit-appareil/edit-appareil.component';
 import { UserService } from './services/user.service';
 import { NewUserComponent } from './new-user/new-user.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './token.interceptor';
+import { ProgramComponent } from './program/program.component';
+import { ProgramViewComponent } from './program-view/program-view.component';
+import { ProgramAddComponent } from './program-add/program-add.component';
 
 @NgModule({
   declarations: [
@@ -26,9 +30,12 @@ import { HttpClientModule } from '@angular/common/http';
     AuthComponent,
     AppareilViewComponent,
     SingleAppareilViewComponent,
-    FourOhFourComponent,
+    NotFoundComponent,
     EditAppareilComponent,
     NewUserComponent,
+    ProgramComponent,
+    ProgramViewComponent,
+    ProgramAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +44,17 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [AppareilService, AuthService, AuthGuard, UserService],
+  providers: [
+    AppareilService,
+    AuthService,
+    AuthGuard,
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
