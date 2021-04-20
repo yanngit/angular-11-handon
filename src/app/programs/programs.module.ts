@@ -6,7 +6,7 @@ import { ProgramViewComponent } from './program-view/program-view.component';
 import { ProgramAddComponent } from './program-add/program-add.component';
 import { ProgramComponent } from './program/program.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProgramService } from '../services/program.service';
+import { ProgramService } from './program.service';
 
 @NgModule({
   declarations: [ProgramViewComponent, ProgramAddComponent, ProgramComponent],

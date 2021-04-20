@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../models/User.model';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { ProgramService } from '../programs/program.service';
+import { User } from '../models/User.model';
 
 @Component({
   selector: 'app-new-user',
@@ -16,6 +17,7 @@ export class NewUserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private programService: ProgramService,
     private router: Router
   ) {}
 

@@ -1,9 +1,0 @@
-<li [ngClass]="getLiClass()">
-  <div class="status-box-indicator" [ngStyle]="{backgroundColor: getColor()}"></div>
-  <h4>Appareil : {{ name }} -- Statut : {{ status }}</h4>
-  <h4>Derniere modification : {{ lastUpdate | async | date: 'short' }}</h4>
-  <input type="text" class="form-control" (change)="updated()" [(ngModel)]="name">
-  <button class="btn btn-success"
-          (click)="onSwitch()">{{ buttonSwitchText }}</button>
-  <a [routerLink]="[id]">Détail</a>
-</li>

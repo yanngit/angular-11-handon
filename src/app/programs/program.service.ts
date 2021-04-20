@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { buildRoute } from './utils';
+import { buildRoute } from '../services/utils';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ProgramService {
   programsRoute = '/programs';
   constructor(private httpClient: HttpClient) {}
