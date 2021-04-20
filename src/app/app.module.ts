@@ -18,9 +18,7 @@ import { UserService } from './services/user.service';
 import { NewUserComponent } from './new-user/new-user.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './token.interceptor';
-import { ProgramComponent } from './program/program.component';
-import { ProgramViewComponent } from './program-view/program-view.component';
-import { ProgramAddComponent } from './program-add/program-add.component';
+import { ProgramsModule } from './programs/programs.module';
 
 @NgModule({
   declarations: [
@@ -33,16 +31,14 @@ import { ProgramAddComponent } from './program-add/program-add.component';
     NotFoundComponent,
     EditAppareilComponent,
     NewUserComponent,
-    ProgramComponent,
-    ProgramViewComponent,
-    ProgramAddComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ProgramsModule,
+    AppRoutingModule,
   ],
   providers: [
     AppareilService,
