@@ -18,4 +18,8 @@ export class ProgramService {
       nbLots,
     });
   }
+
+  deleteProgram(id: number): Observable<any> {
+    return this.httpClient.delete(buildRoute(this.programsRoute + '/' + id));
+  }
 }

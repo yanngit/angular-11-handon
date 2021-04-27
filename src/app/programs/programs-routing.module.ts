@@ -9,12 +9,13 @@ const routes: Routes = [
     path: 'programs',
     canActivate: [AuthGuard],
     component: ProgramViewComponent,
+
   },
   {
     path: 'programs/add',
     canActivate: [AuthGuard],
     component: ProgramAddComponent,
-  },
+  }
 ];
 
 @NgModule({

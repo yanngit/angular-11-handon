@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  private isAuth: boolean;
+  private isAuth = false;
   constructor(private authService: AuthService, private router: Router) {
     authService.getAuthentication().subscribe((data) => {
       this.isAuth = data;

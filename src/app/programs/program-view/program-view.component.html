@@ -1,0 +1,8 @@
+<h1>Mes programmes</h1>
+<ul class="list-group">
+  <app-program *ngFor="let program of programs" [id]="program.id" [name]="program.name" [nbLots]="program.nbLots" (itemDeleted)="loadData()"></app-program>
+</ul>
+<a routerLink="/programs/add">
+  <button class="btn btn-primary">Ajouter un programme</button>
+</a>
+

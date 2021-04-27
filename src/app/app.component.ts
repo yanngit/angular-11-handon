@@ -11,7 +11,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit, OnDestroy {
   secondes: number;
   counterSubscription: Subscription;
-  isAuth: boolean;
+  isAuth = false;
   constructor(private authService: AuthService) {
     authService.getAuthentication().subscribe((data) => {
       this.isAuth = data;

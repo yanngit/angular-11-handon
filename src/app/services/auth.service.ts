@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { buildRoute } from './utils';
+import {share} from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
         email,
         password,
       }
-    );
+    ).pipe(share());
 
     observableResponse.subscribe((data) => {
       this.isAuth.next(true);
@@ -39,7 +40,7 @@ export class AuthService {
     return this.isAuth;
   }
 
-  getAccessToken() {
+  getAccessToken(): string | null {
     return localStorage.getItem('access_token');
   }
 }

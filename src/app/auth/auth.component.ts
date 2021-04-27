@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-  isAuth: boolean;
+  isAuth = false;
   errorMessage: string;
 
   constructor(private authService: AuthService, private router: Router) {

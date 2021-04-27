@@ -1,0 +1,8 @@
+<li>
+  <h2>Programme {{ name }}</h2>
+  <h3>Nombre de lots : {{ nbLots }}</h3>
+  <button class="btn btn-danger" (click)="delete()">Supprimer</button>
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+</li>
