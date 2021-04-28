@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,9 @@ export class AppComponent implements OnInit, OnDestroy {
   secondes: number;
   counterSubscription: Subscription;
   isAuth = false;
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, public translate: TranslateService) {
+    translate.addLangs(['en', 'fr']);
+    translate.setDefaultLang(navigator.language.split('-')[0]);
     authService.getAuthentication().subscribe((data) => {
       this.isAuth = data;
     });

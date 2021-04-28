@@ -11,9 +11,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserService } from './services/user.service';
 import { NewUserComponent } from './new-user/new-user.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { TokenInterceptor } from './token.interceptor';
 import { ProgramsModule } from './programs/programs.module';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,13 @@ import { ProgramsModule } from './programs/programs.module';
     HttpClientModule,
     ProgramsModule,
     AppRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     AuthService,
@@ -44,3 +53,8 @@ import { ProgramsModule } from './programs/programs.module';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+// AOT compilation support
+export function httpTranslateLoader(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}
